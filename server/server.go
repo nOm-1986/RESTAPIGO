@@ -20,6 +20,7 @@ type Server interface {
 	Config() *Config
 }
 
+// Encargado de manejar los servidores
 type Broker struct {
 	config *Config
 	router *mux.Router
@@ -32,6 +33,7 @@ func (b *Broker) Config() *Config {
 // Constructor
 // context para entender errores en las go rutines
 // Cuando se trabajoa con GoRutins, estas son bastantes independientes, aveces no sabemos porque estan fallando
+// el ctx contexto sera clave para identificar este tipo de problemas
 func NewServer(ctx context.Context, config *Config) (*Broker, error) {
 	if config.Port == "" {
 		return nil, errors.New("Port is required")
