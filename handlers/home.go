@@ -10,7 +10,7 @@ import (
 
 type HomeResponse struct {
 	//Message string `json:"mensage"` => En Go le decimos que la propiedad es Message, pero cuando se serialice a JSON sea en minúscula
-	Message string `json:"mensage"`
+	Message string `json:"message"`
 	Status  bool   `json:"status"`
 	//StatusCode int16  `json:"statuscode"`
 }
