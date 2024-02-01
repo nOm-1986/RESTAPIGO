@@ -3,6 +3,7 @@ package database
 import (
 	"context"
 	"database/sql"
+	"log"
 	"rest-api-go/models"
 )
 
@@ -24,6 +25,25 @@ func (repo *PostgresRepository) InsertUser(ctx context.Context, user *models.Use
 }
 
 func (repo *PostgresRepository) GetUserById(ctx context.Context, id int64) (*models.User, error) {
-	repo.db.QueryContext(ctx, "SELECT id, email FROM users WHERE id = $1", id)
+	rows, err := repo.db.QueryContext(ctx, "SELECT id, email FROM users WHERE id = $1", id)
+	defer func() {
+		err = rows.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+	user := models.User{}
+	for rows.Next() {
+		if err = rows.Scan(&user.Id, &user.Email); err == nil {
+			return &user, nil
+		}
+	}
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
 
+func (repo *PostgresRepository) Close() error {
+	return repo.db.Close()
 }
