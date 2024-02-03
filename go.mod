@@ -12,5 +12,6 @@ require (
 
 require (
 	github.com/lib/pq v1.10.9 // indirect
+	github.com/segmentio/ksuid v1.0.4 // indirect
 	golang.org/x/net v0.17.0 // indirect
 )
