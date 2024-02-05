@@ -18,6 +18,6 @@ func NewMysqlRepository(url string) (*MysqlRepository, error) {
 	return &MysqlRepository{db}, nil
 }
 
-func (repo *MysqlRepository) InsertUser(ctx context.Context, user *models.User) error {
+func (repo *MysqlRepository) InsertUser(ctx context.Context, user *models.User) {
 	//
 }
